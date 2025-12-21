@@ -14,6 +14,7 @@
             --color-border: #e1e4e8;
             --color-text: #3c4043;
             --color-accent: #00599a; /* Deep Ocean Blue */
+            --color-button-hover: #003f6d;
             --spacing-unit: 1.5rem;
             --border-radius: 12px;
         }
@@ -35,9 +36,7 @@
             width: 100%;
         }
 
-        /* Rule 2: Grid Layout for Desktop (Bento Grid) 
-           We now have 7 cards, requiring minor adjustments to the grid areas.
-        */
+        /* Bento Grid Layout */
         .bento-grid {
             display: grid;
             gap: var(--spacing-unit);
@@ -53,17 +52,14 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            /* Updated for smoother transition on hover */
             transition: transform 0.3s ease-in-out, box-shadow 0.3s; 
         }
 
-        /* Rule 3: Theme Tweak - Subtle Hover Effect */
         .card:hover {
-            transform: translateY(-4px) scale(1.01); /* Lift and subtle zoom */
+            transform: translateY(-4px) scale(1.01);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* Card Content Styling (Kept consistent) */
         .card h3 {
             margin-top: 0;
             margin-bottom: 0.5rem;
@@ -77,13 +73,28 @@
             font-weight: 500;
         }
 
-        .card a:hover {
-            text-decoration: underline;
+        /* Lab Timer Button Styling */
+        .btn-timer {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: white !important;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 1.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            border: none;
         }
 
-        /* --- Layout Mapping (Desktop) --- */
+        .btn-timer:hover {
+            background-color: var(--color-button-hover);
+            transform: translateY(-2px);
+            text-decoration: none !important;
+        }
 
-        /* Card 1 (Profile): Large box (2x2) */
+        /* --- Layout Mapping --- */
+
         .card-profile {
             grid-column: span 2;
             grid-row: span 2;
@@ -105,7 +116,6 @@
             margin-top: 1rem;
         }
 
-        /* Card 2 (Location): Small box (1x1) - Now needs to fill the space above Card 5 & 7 */
         .card-location {
             grid-column: 3 / 4;
             grid-row: 1 / 2;
@@ -120,10 +130,10 @@
             margin-top: 0.25rem;
         }
 
-        /* Card 4 (Case Study): Medium box (2x1) - Needs to be slightly taller to align */
         .card-case-study {
             grid-column: 4 / 5;
             grid-row: 1 / 3;
+            justify-content: space-between;
         }
         .case-study-title {
             font-weight: 700;
@@ -131,7 +141,6 @@
             color: var(--color-accent);
         }
 
-        /* Card 3 (Subjects): Medium box (1x2) - Positioned below Location */
         .card-stack {
             grid-column: 3 / 4;
             grid-row: 2 / 4;
@@ -151,59 +160,9 @@
             content: '🧪 '; 
             margin-right: 0.5rem;
         }
-        
-        /* Card 7 (Reflection): New Card. Medium box. Placed next to Hobby. */
-        .card-reflection {
-            grid-column: 4 / 5; /* Share the last column */
-            grid-row: 3 / 4; /* Share the third row */
-        }
-        .card-reflection p {
-            font-style: italic;
-            font-weight: 500;
-        }
-
-        /* Card 5 (Hobby): Small box (1x1) - Now shifted to an available slot */
-        /* To make Card 7 fit beside it, we must ensure Card 7 is on its own row */
-        /* Let's reposition Card 5 and Card 7 to share the bottom row space */
-        
-        .card-hobby {
-            grid-column: 1 / 3; /* Below the Profile card, spans 2 columns */
-            grid-row: 3 / 4;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .card-hobby .activity-text {
-            font-weight: 600;
-            color: var(--color-accent);
-        }
-        
-        /* Let's re-map to fit 7 items elegantly:
-           R1: [P] [P] [L] [CS]
-           R2: [P] [P] [S] [CS]
-           R3: [Hobby(2)] [S] [Reflec(1)] 
-           This doesn't work well due to the size constraints. Let's try filling the empty R3 space.
-           
-           Revised Map (7 items):
-           R1: [P] [P] [L(1)] [CS(2)]
-           R2: [P] [P] [S(2)] [CS]
-           R3: [H(1)] [R(1)] [S] [H(1)] <-- Wait, only 4 columns.
-           
-           R1: [P] [P] [L] [CS]
-           R2: [P] [P] [S] [CS]
-           R3: [Hobby(1)] [Reflection(1)] [S] [Empty]
-           
-           Let's use the third row for the two new cards.
-           
-           Card 5 (Hobby): Small box (1x1) 
-           .card-hobby { grid-column: 1 / 2; grid-row: 3 / 4; }
-           
-           Card 7 (Reflection): Medium box (2x1)
-           .card-reflection { grid-column: 2 / 4; grid-row: 3 / 4; }
-        */
 
         .card-hobby {
-            grid-column: 1 / 2; /* 1 column wide */
+            grid-column: 1 / 2;
             grid-row: 3 / 4;
             justify-content: center;
             align-items: center;
@@ -211,11 +170,10 @@
         }
 
         .card-reflection {
-            grid-column: 2 / 4; /* Spans 2 columns */
+            grid-column: 2 / 4;
             grid-row: 3 / 4;
         }
         
-        /* Card 6 (Playlist): Wide box at the bottom (4x1) */
         .card-playlist {
             grid-column: 1 / 5;
             min-height: 100px;
@@ -234,28 +192,15 @@
             margin-top: 0.75rem;
         }
 
-
-        /* Rule 2: Responsiveness (Mobile Layout) */
+        /* Mobile Layout */
         @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
-            
             .bento-grid {
                 grid-template-columns: 1fr; 
                 grid-auto-rows: auto;
-                gap: 1rem;
             }
-
-            /* Reset all desktop grid-area definitions */
             .card {
                 grid-column: auto !important;
                 grid-row: auto !important;
-                min-height: auto;
-            }
-            
-            .card-profile {
-                min-height: 200px;
             }
         }
     </style>
@@ -273,9 +218,9 @@
                     <p class="profile-tagline">'Innovating food safety.'</p>
                     <p>Enthusiastic first-year student focusing on the principles of food processing and quality assurance.</p>
                     <div class="social-links">
-                        <a href="<a href=”https://github.com/S78972”" target="_blank">LinkedIn</a>
-                        <a href="<a href=”https://github.com/S78972”" target="_blank">GitHub</a>
-                        <a href="<a href=”https://github.com/S78972”" target="_blank">UMT Portal</a>
+                        <a href="https://github.com/S78972" target="_blank">LinkedIn</a>
+                        <a href="https://github.com/S78972" target="_blank">GitHub</a>
+                        <a href="https://github.com/S78972" target="_blank">UMT Portal</a>
                     </div>
                 </div>
             </div>
@@ -287,10 +232,15 @@
             </div>
 
             <div class="card card-case-study">
-                <h3>Recent Lab Experiment</h3>
-                <p class="case-study-title">Starch Gelatinization in Local Kuih</p>
-                <p>Analyzing the texture profiles of *Kuih Lapis* using rheology measurements to understand the impact of ingredient ratios on elasticity and mouthfeel.</p>
-                <a href="#casestudy">View Full Analysis &rarr;</a>
+                <div>
+                    <h3>Recent Lab Experiment</h3>
+                    <p class="case-study-title">Starch Gelatinization in Local Kuih</p>
+                    <p>Analyzing the texture profiles of *Kuih Lapis* using rheology measurements to understand elasticity and mouthfeel.</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="#casestudy">View Full Analysis →</a>
+                    <a href="[PASTE YOUR APP URL HERE]" class="btn-timer">Try My Lab Timer App</a>
+                </div>
             </div>
             
             <div class="card card-stack">
@@ -306,19 +256,19 @@
             <div class="card card-hobby">
                 <h3>Hobby / Wellness</h3>
                 <p class="activity-text">Evening Walks at Pantai UMT</p>
-                <p>A necessary break to recharge and appreciate the coastal environment.</p>
+                <p>A necessary break to recharge and appreciate the coast.</p>
             </div>
             
             <div class="card card-reflection">
                 <h3>Why Food Tech Matters in Malaysia</h3>
                 <p>Sustainable food security is crucial for our future. By optimizing local processing methods, we can reduce waste and improve nutrition.</p>
-                <a href="#reflection">Read More on Sustainability &rarr;</a>
+                <a href="#reflection">Read More on Sustainability →</a>
             </div>
             
             <div class="card card-playlist">
                 <h3>Study Session Soundtrack</h3>
                 <div class="playlist-placeholder">
-                   <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1E36AJZiu8ivZb?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                   <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1E36AJZiu8ivZb?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             </div>
 
@@ -326,3 +276,4 @@
     </div>
 </body>
 </html>
+   
